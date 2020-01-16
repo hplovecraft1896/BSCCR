@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+Sentencias
+{% endblock titulo %}
+<!--
+    <form action="" method="get">
+                <label for="numero">Numero de sentencia</label>
+                <input type="text" name="numero" id="numero" class="form-control" placeholder="#">
+    </form>
+-->
+{% block tituloForm %}
+  Sentencias
+{% endblock tituloForm %}
+{% block contenido %}
+
+<h5 style="text-align: center;">A continuacion se presenta una tabla condensada de datos de las sentencias de la CCR</h5>
+
+<div class="row">
+    
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        
+    </div>
+    
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <p style="text-align: center;">En el la parte inferior de la tabla se 
+            muestran cajas de entrada de texto, para hacer el filtrado del 
+            contenido de la informacion.</p>
+    </div>
+    
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        
+    </div>
+    
+</div>
+
+<p style="font-size: 12px;">Si deseas ver mas detalles de la sentencia puedes hacer click sobre el numero de sentencia.</p>
+
+<div class="table-responsive">
+
+    <table id="tabla" class="table table-condensed table-striped table-inverse table-responsive"  style="font-size: 12px; text-align: center;">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Numero</th>
+                <th>Intitucion</th>
+                <th>Instancia</th>
+                <th>Camara</th>
+                <th>Resolucion</th>
+                <th>Fecha de Resolucion</th>
+                <th>Recepcion de Solicitud</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for sentencia in sentencias %}
+                <tr>
+                    <td scope="row"><a href="{% url 'sentencia_detail' sentencia.pk %}">{{sentencia.numero}}</a></td>
+                    <td>{{sentencia.institucion}}</td>
+                    <td>{{sentencia.instancia}}</td>
+                    <td>{{sentencia.camara}}</td>
+                    <td>
+                    {% if sentencia.resolucion is None %}
+                        Mixta
+                    {% else %}
+                        {% if sentencia.resolucion %}
+                            Favorable
+                        {% else %}
+                            Desfavorable
+                        {% endif %}
+                    {% endif %}
+                        </td>
+                    <td>{{sentencia.fecha_resolucion}}</td>
+                    <td>{{sentencia.fecha_recepcion}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Numero</th>
+                    <th>Intitucion</th>
+                    <th>Instancia</th>
+                    <th>Camara</th>
+                    <th>Resolucion</th>
+                    <th>Fecha de Resolucion</th>
+                    <th>Recepcion de Solicitud</th>
+                </tr>
+            </tfoot>
+    </table>
+</div>
+    <!--
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+   -->
+
+{% endblock contenido %}

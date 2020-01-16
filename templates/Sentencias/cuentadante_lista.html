@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block tituloForm %}
+Cuentadantes
+{% endblock tituloForm %}
+
+{% block contenido %}
+<h5 style="text-align: center;">A continuacion se presenta una tabla condensada de datos de los cuentadantes reparados</h5>
+
+<div class="row">
+    
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            
+        </div>
+        
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <p style="text-align: center;">En el la parte inferior de la tabla se 
+                muestran cajas de entrada de texto, para hacer el filtrado del 
+                contenido de la informacion.</p>
+        </div>
+        
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            
+        </div>
+        
+    </div>
+    
+    
+<div class="row">
+
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <p style="font-size: 12px;text-align: center;">Si deseas ver mas detalles de la sentencia puedes hacer click sobre el nombre del cuentadante.</p>
+
+        <div class="table-responsive">
+
+            <table id="tabla" class="table table-condensed table-striped table-inverse table-responsive"
+                style="font-size: 12px; text-align:center;">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Salario</th>
+                        <th>Intitucion</th>
+                        <th>Cargo</th>
+                    </tr>
+                <tfoot>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Salario</th>
+                        <th>Intitucion</th>
+                        <th>Cargo</th>
+                    </tr>
+                </tfoot>
+                </thead>
+                <tbody>
+                    {% for cuentadante in cuentadantes %}
+                    <tr>
+                        <td scope="row"><a href="{% url 'cuentadante_detail' cuentadante.pk %}">{{cuentadante.nombre}}</a></td>
+                        <td>{{cuentadante.salario}}</td>
+                        <td>{{cuentadante.institucion}}</td>
+                        <td>{{cuentadante.cargo}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+
+    </div>
+
+</div>
+
+{% endblock contenido %}

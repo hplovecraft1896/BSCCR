@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block titulo %}
+        Inicio
+        {% endblock titulo %}</title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">BSCCR</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'sentencias' %}">Sentencias </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'cuentadantes' %}">Cuentadantes </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h3 style="text-align: center;" class="mt-4">{% block tituloForm %}
+                    Formulario
+                    {% endblock tituloForm %}</h3>
+                <hr class="mt-0 mb-4">
+                {% block formulario %}
+
+                {% endblock formulario %}
+            </div>
+        </div>
+        {% block contenido %}
+
+        {% endblock contenido %}
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <!--datatable-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#tabla tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control" style="font-size:10px;" placeholder="' + title + '" />');
+            });
+
+            // DataTable
+            var table = $('#tabla').DataTable({
+                "info": false,
+                "lengthChange": false,
+                "pageLength": 5
+            }
+            );
+
+            // Apply the search
+            table.columns().every(function () {
+                var that = this;
+
+                $('input', this.footer()).on('keyup change clear', function () {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+            document.getElementById("tabla_filter").style.display = "none";
+            document.getElementById("tabla_filter").innerHTML = document.getElementById("tabla_filter").innerHTML.replace("Search", "Buscar")
+            document.getElementById("tabla_length").innerHTML = document.getElementById("tabla_length").innerHTML.replace("Show", "Mostrar")
+            document.getElementById("tabla_length").innerHTML = document.getElementById("tabla_length").innerHTML.replace("entries", "registros")
+            document.getElementById("tabla_info").innerHTML = document.getElementById("tabla_info").innerHTML.replace("Showing", "Mostrando desde registro")
+            document.getElementById("tabla_info").innerHTML = document.getElementById("tabla_info").innerHTML.replace("to", "hasta")
+            document.getElementById("tabla_info").innerHTML = document.getElementById("tabla_info").innerHTML.replace("of", "de")
+            document.getElementById("tabla_info").innerHTML = document.getElementById("tabla_info").innerHTML.replace("entries", "registros")
+            document.getElementById("tabla_next").innerHTML = document.getElementById("tabla_next").innerHTML.replace("Next", "Siguiente")
+            document.getElementById("tabla_previous").innerHTML = document.getElementById("tabla_previous").innerHTML.replace("Previous", "Anterior")
+        });
+    </script>
+</body>
+
+</html>

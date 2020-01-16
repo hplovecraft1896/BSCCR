@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block tituloForm %}
+    {{cuentadante.nombre}}    
+{% endblock tituloForm %}
+
+
+
+
+{% block contenido %}
+<div class="container-fluid">
+    <div class="row">
+
+<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+    
+</div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td scope="row">Cargo:</td>
+                                <td>{{cuentadante.cargo}}</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Salario:</td>
+                                <td>{{cuentadante.salario}}</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Institucion:</td>
+                                <td>{{cuentadante.institucion}}</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Sentencias en las que ha sido involucrado, segun datos en el sistema:</td>
+                                <td>{{sentencias}}</td>
+                            </tr>
+                            <tr>
+                                <td scope="row">Reparos en los que ha sido condenado, segun datos en el sistema::</td>
+                                <td>{{reparos.count}}</td>
+                            </tr>
+                            <tr>
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+    
+</div>
+    </div>
+</div>
+
+
+<div class="row">
+
+<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    
+</div>
+
+<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="table-responsive">
+
+                <table id="tabla" class="table table-condensed table-striped table-inverse table-responsive"  style="font-size: 12px; text-align: center;">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Titulo de Reparo</th>
+                            <th>Nuemero de Reparo</th>
+                            <th>Sentencia</th>
+                            <th>Fecha de Resolucion</th>
+            
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for reparo in reparos %}
+                            <tr>
+                                <td >{{reparo.titulo}}</td>
+                                <td scope="row">{{reparo.numero_de_reparo}}</td>
+                                <td ><a href="{% url 'sentencia_detail' reparo.sentencia.pk %}">{{reparo.sentencia.numero}}</a></td>
+                                <td>{{reparo.sentencia.fecha_resolucion}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                            <th>Titulo de Reparo</th>
+                            <th>Numero de Reparo</th>
+                            <th>Sentencia</th>
+                            <th>Fecha de Resolucion</th>
+                            </tr>
+                        </tfoot>
+                </table>
+            </div>
+            
+</div>
+
+<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    
+</div>
+
+
+</div>
+
+
+{% endblock contenido %}
